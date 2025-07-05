@@ -1,12 +1,28 @@
 # React + Vite
+📘 React ToDo List App
+This is my very first project built with React as part of my React Study Journey. The goal of this project is to understand the fundamentals of React, including components, props, state, event handling, and basic UI logic.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+✨ Features
+Add new tasks
 
-Currently, two official plugins are available:
+Mark tasks as completed
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Delete tasks
 
-## Expanding the ESLint configuration
+Responsive and clean UI
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🚀 Tech Stack
+React (Functional Components + Hooks)
+
+JavaScript
+
+HTML & CSS
+
+🎯 Learning Objectives
+Learn how to create and manage React components
+
+Understand the use of useState for state management
+
+Practice conditional rendering and basic list operations
+
+Gain experience in handling events in React

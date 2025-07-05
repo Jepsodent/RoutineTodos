@@ -5,23 +5,23 @@ This is my very first project built with React as part of my React Study Journey
 ✨ Features
 Add new tasks
 
-Mark tasks as completed
+Edit Task
 
-Delete tasks
+Delete Task
 
-Responsive and clean UI
+Read Task (local storage)
 
 🚀 Tech Stack
-React (Functional Components + Hooks)
+React 
 
 JavaScript
 
-HTML & CSS
+Tailwind
 
 🎯 Learning Objectives
 Learn how to create and manage React components
 
-Understand the use of useState for state management
+Understand the use of hooks for state management such as useReducer, useContext, useEffect 
 
 Practice conditional rendering and basic list operations
 

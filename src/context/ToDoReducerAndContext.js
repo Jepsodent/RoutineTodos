@@ -5,6 +5,7 @@ export const initialState = {
     todos : [],
     nextId : 1,
     editingTodo: null,
+    filterBy : "all"
 }
 
 
@@ -52,6 +53,16 @@ export const todoReducer = (state , action) => {
                 todos : action.payload.todos,
                 nextId : action.payload.nextId,
             };
+        case "TOGGLE_COMPLETE":
+            return{
+                ...state,
+                todos : state.todos.map((todo) => todo.id === action.payload ? {...todo , completed : !todo.completed}  : todo)
+            }
+        case "FILTER":
+            return{
+                ...state,
+                filterBy : action.payload
+            }
         default:
             return state;
     }

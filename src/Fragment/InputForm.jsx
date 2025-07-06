@@ -34,19 +34,19 @@ const InputForm = () => {
       <div className="flex gap-4 my-4">
         <Input value={value} handleText={handleText} error={error} />
         <Button status="add" type="submit">
-          <div className="flex gap-3 items-center justify-center text-base">
+          <div className="flex items-center justify-center gap-3 text-base">
 
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="1.5"
+            strokeWidth="1.5"
             stroke="currentColor"
-            class="size-4"
+            className="size-4"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M12 4.5v15m7.5-7.5h-15"
             />
           </svg>

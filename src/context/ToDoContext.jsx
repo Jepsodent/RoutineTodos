@@ -18,6 +18,7 @@ export const ToDoProvider = ({children}) => {
                     todos :todos, 
                     nextId : initialId,
                     editingTodo : null,
+                    filterBy : "all"
                 }
             }catch(e){
                 console.log("Failed to parse : ",e);

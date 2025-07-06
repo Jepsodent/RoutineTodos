@@ -5,11 +5,17 @@ import EditForm from "../Fragment/EditForm";
 
 import { TodoStateContext } from "../context/ToDoReducerAndContext";
 import { useTodoAction } from "../hooks/todoAction";
+import DropDown from "../components/button/CustomDropDown";
 
 const ToDoLayout = () => {
   const state = useContext(TodoStateContext);
-  const { handleDeleteTodo, handleEditTodo } = useTodoAction();
-  const { todos, editingTodo } = state;
+  const {
+    handleDeleteTodo,
+    handleEditTodo,
+    handleToggleAction,
+    handleFilterAction,
+  } = useTodoAction();
+  const { todos, editingTodo, filterBy } = state;
 
   const onEditClick = (id) => {
     const findEditTodo = todos.find((todo) => todo.id === id);
@@ -22,30 +28,77 @@ const ToDoLayout = () => {
     handleDeleteTodo(id);
   };
 
+  const onCompleteClick = (id) => {
+    handleToggleAction(id);
+  };
+
+  const filterTodos = todos.filter((todo) => {
+    if (filterBy === "completed") {
+      return todo.completed;
+    }
+    if (filterBy === "remaining") {
+      return !todo.completed;
+    }
+    return true;
+  });
+
+  const onSelect = (value) => {
+    handleFilterAction(value);
+  };
+  const options = [
+    {
+      value: "all",
+      label: "All Tasks",
+    },
+    {
+      value: "completed",
+      label: "Completed",
+    },
+    {
+      value: "remaining",
+      label: "Remaining",
+    },
+  ];
+
   return (
-    <div className="flex flex-col min-h-screen  items-center gap-4 pt-30 font-mono">
-      <h3 className="text-4xl font-bold text-white  ">Routine<span className="text-[#8456d5]">Todos</span></h3>
-      <p className="text-base font-bold text-slate-500  ">
+    <div className="flex flex-col items-center min-h-screen gap-4 font-mono pt-30">
+      <h3 className="text-4xl font-bold text-white ">
+        Routine<span className="text-[#8456d5]">Todos</span>
+      </h3>
+      <p className="text-base font-bold text-slate-500 ">
         My React To Do List Project!
       </p>
-      <div className="w-full flex justify-center items-center">
-        <div className="min-w-180  flex flex-col items-center">
-          <div className="w-full">
+      <div className="flex items-center justify-center w-full">
+        <div className="flex flex-col items-center min-w-180">
+          <div className="w-full ">
             <InputForm />
+          </div>
+          <div className="flex items-center justify-between w-full px-4 ">
+            {/* Ini adalah tempat untuk "Status Count" nanti */}
+            <div className="flex gap-8 ml-4 text-sm text-slate-400">
+              <p className="text-violet-300">all: {todos.length} </p>
+              <p className="text-green-500">completed:{todos.filter((todo) => todo.completed).length}</p>
+              <p className="text-amber-500">remaining:{todos.filter(todo => !todo.completed).length} </p>
+            </div>
+            <DropDown
+              options={options}
+              onSelect={onSelect}
+              currentFilter={filterBy}
+            ></DropDown>
           </div>
           <div className="w-full">
             {todos.length === 0 ? (
-              <p className="text-center text-gray-400 mb-4">No task yet!</p>
+              <p className="mb-4 text-center text-gray-400">No task yet!</p>
             ) : (
               <ul className="py-4">
-                {todos.map((todo) => (
+                {filterTodos.map((todo) => (
                   <li key={todo.id}>
                     <Card
+                      todo={todo}
+                      onCompleteClick={() => onCompleteClick(todo.id)}
                       onEditClick={() => onEditClick(todo.id)}
                       onDeleteClick={() => onDeleteClick(todo.id)}
-                    >
-                      {todo.text}
-                    </Card>
+                    />
                   </li>
                 ))}
               </ul>

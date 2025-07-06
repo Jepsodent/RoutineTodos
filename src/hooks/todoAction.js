@@ -4,7 +4,6 @@ import { TodoDispatchContext } from "../context/ToDoReducerAndContext";
 
 export const useTodoAction = () => {
     const dispatch = useContext(TodoDispatchContext);
-    
     const handleAddTodo = (value, nextId) => {
         dispatch({
           type: "ADD_TODO",
@@ -44,7 +43,21 @@ export const useTodoAction = () => {
           },
         });
       };
+      const handleToggleAction = (id) => {
+        dispatch({
+          type:"TOGGLE_COMPLETE",
+          payload: id
+        })
+      }
+
+      const handleFilterAction = (text) => {
+        dispatch({
+          type : "FILTER",
+          payload : text,
+        })
+      }
+
       return{
-        handleAddTodo ,handleDeleteTodo,handleEditTodo,handleCancelEdit , handleSaveEdit
+        handleAddTodo ,handleDeleteTodo,handleEditTodo,handleCancelEdit , handleSaveEdit, handleToggleAction,handleFilterAction
       };
 }

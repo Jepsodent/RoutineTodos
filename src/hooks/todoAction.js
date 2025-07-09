@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import { TodoDispatchContext } from "../context/ToDoReducerAndContext";
 
 
@@ -50,12 +50,12 @@ export const useTodoAction = () => {
         })
       }
 
-      const handleFilterAction = (text) => {
+      const handleFilterAction = useCallback((text) => {
         dispatch({
           type : "FILTER",
           payload : text,
         })
-      }
+      }, [dispatch])
 
       return{
         handleAddTodo ,handleDeleteTodo,handleEditTodo,handleCancelEdit , handleSaveEdit, handleToggleAction,handleFilterAction

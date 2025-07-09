@@ -1,7 +1,23 @@
+import { memo} from "react";
 import Button from "../components/button/Button";
+import { useTodoAction } from "../hooks/todoAction";
+
 const Card = (props) => {
-  const { todo, onEditClick, onDeleteClick , onCompleteClick} = props;
-    
+  const {handleEditTodo ,  handleDeleteTodo , handleToggleAction} = useTodoAction()
+  const { todo } = props;
+  console.log("Card render for id : ",todo.id);
+  
+  const onEditClick = () => {
+    handleEditTodo(todo);
+  }
+  
+  const onDeleteClick = () => {
+    handleDeleteTodo(todo.id) 
+  }
+  
+  const onCompleteClick = () => {
+    handleToggleAction(todo.id);
+  }
   return (
     <div className="flex items-center justify-between p-2 m-4  bg-[#393E6F] rounded-md font-medium text-md hover:bg-[#3D2E4F]">
       <input type="checkbox"
@@ -46,4 +62,4 @@ const Card = (props) => {
   );
 };
 
-export default Card;
+export default memo(Card);

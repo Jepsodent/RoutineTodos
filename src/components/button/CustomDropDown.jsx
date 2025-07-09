@@ -1,9 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 
-const DropDown = ({ options, onSelect, currentFilter }) => {
+const DropDown = ({onSelect, currentFilter }) => {
+  console.log("DropDown")
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-
+  const options = [
+    {
+      value: "all",
+      label: "All Tasks",
+    },
+    {
+      value: "completed",
+      label: "Completed",
+    },
+    {
+      value: "remaining",
+      label: "Remaining",
+    },
+  ];
   useEffect(() => {
     const handleClickOutSide = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -71,4 +85,4 @@ const DropDown = ({ options, onSelect, currentFilter }) => {
   );
 };
 
-export default DropDown;
+export default memo(DropDown);

@@ -4,6 +4,7 @@ import { TodoStateContext } from "../context/ToDoReducerAndContext";
 import { useTodoAction } from "../hooks/todoAction";
 
 const EditForm = () => {
+  console.log("editForm");
   const state = useContext(TodoStateContext);
   const {text , id} = state.editingTodo;
   const {handleCancelEdit , handleSaveEdit} = useTodoAction();
@@ -29,15 +30,13 @@ const EditForm = () => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md bg-blue-100/0">
       <div className="bg-[#3D2E4F] min-w-120 min-h-60 p-8 rounded-md shadow-lg z-60 ">
-        <h2 className="text-center text-xl mb-4 text-slate-200">Edit Your Task</h2>
-          <form className="flex justify-between gap-4 flex-col" onSubmit={handleSubmit}>
+        <h2 className="mb-4 text-xl text-center text-slate-200">Edit Your Task</h2>
+          <form className="flex flex-col justify-between gap-4" onSubmit={handleSubmit}>
             <input
               type="text"
               onChange={(e) => setEditText(e.target.value)}
               value={editText}
-              className="border border-gray-300 p-2 w-full min-w-80 flex-grow rounded-l-md text-slate-200 
-              focus:outline-none
-              "
+              className="flex-grow w-full p-2 border border-gray-300 min-w-80 rounded-l-md text-slate-200 focus:outline-none "
             />
             {error && <p className="text-red-500">{error}</p>}
             <div className="flex justify-center gap-8 mt-4">

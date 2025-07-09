@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useCallback, useContext, useMemo } from "react";
 import Card from "../Fragment/Card";
 import InputForm from "../Fragment/InputForm";
 import EditForm from "../Fragment/EditForm";
@@ -8,57 +8,36 @@ import { useTodoAction } from "../hooks/todoAction";
 import DropDown from "../components/button/CustomDropDown";
 
 const ToDoLayout = () => {
+  console.log("RENDER!")
+  console.log("todolayout")
   const state = useContext(TodoStateContext);
   const {
-    handleDeleteTodo,
-    handleEditTodo,
-    handleToggleAction,
     handleFilterAction,
   } = useTodoAction();
+
+  
   const { todos, editingTodo, filterBy } = state;
 
-  const onEditClick = (id) => {
-    const findEditTodo = todos.find((todo) => todo.id === id);
-    if (findEditTodo) {
-      handleEditTodo(findEditTodo);
-    }
-  };
 
-  const onDeleteClick = (id) => {
-    handleDeleteTodo(id);
-  };
 
-  const onCompleteClick = (id) => {
-    handleToggleAction(id);
-  };
+  const filterTodos = useMemo(() => {
+    console.log("filterTodos dijalankan")
+    return todos.filter((todo) => {
+      if (filterBy === "completed") {
+        return todo.completed;
+      }
+      if (filterBy === "remaining") {
+        return !todo.completed;
+      }
+      return true;
+    });
+  } , [todos , filterBy])
 
-  const filterTodos = todos.filter((todo) => {
-    if (filterBy === "completed") {
-      return todo.completed;
-    }
-    if (filterBy === "remaining") {
-      return !todo.completed;
-    }
-    return true;
-  });
-
-  const onSelect = (value) => {
+  const onSelect = useCallback((value) => {
     handleFilterAction(value);
-  };
-  const options = [
-    {
-      value: "all",
-      label: "All Tasks",
-    },
-    {
-      value: "completed",
-      label: "Completed",
-    },
-    {
-      value: "remaining",
-      label: "Remaining",
-    },
-  ];
+  }, [handleFilterAction]);
+  
+  
 
   return (
     <div className="flex flex-col items-center min-h-screen gap-4 font-mono pt-30">
@@ -81,7 +60,6 @@ const ToDoLayout = () => {
               <p className="text-amber-500">remaining:{todos.filter(todo => !todo.completed).length} </p>
             </div>
             <DropDown
-              options={options}
               onSelect={onSelect}
               currentFilter={filterBy}
             ></DropDown>
@@ -95,9 +73,6 @@ const ToDoLayout = () => {
                   <li key={todo.id}>
                     <Card
                       todo={todo}
-                      onCompleteClick={() => onCompleteClick(todo.id)}
-                      onEditClick={() => onEditClick(todo.id)}
-                      onDeleteClick={() => onDeleteClick(todo.id)}
                     />
                   </li>
                 ))}

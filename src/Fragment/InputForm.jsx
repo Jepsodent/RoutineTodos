@@ -1,14 +1,10 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Input from "../components/Input";
 import Button from "../components/button/Button";
-import { TodoStateContext } from "../context/ToDoReducerAndContext";
-import { useTodoAction } from "../hooks/todoAction";
+import useTodoStore from "../store/useTodoStore";
 
 const InputForm = () => {
-  const state = useContext(TodoStateContext);
-  const { handleAddTodo } = useTodoAction();
-  const { nextId } = state;
-
+  const addTodo  = useTodoStore((state) => state.addTodo);
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
 
@@ -22,7 +18,7 @@ const InputForm = () => {
     if (value.trim() === "") {
       setError("Tidak boleh kosong!");
     } else {
-      handleAddTodo(value, nextId);
+      addTodo(value);
       console.log(value);
       setError("");
       setValue("");

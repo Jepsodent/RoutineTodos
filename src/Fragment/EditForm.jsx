@@ -1,14 +1,20 @@
-import { useContext, useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 import Button from "../components/button/Button";
-import { TodoStateContext } from "../context/ToDoReducerAndContext";
-import { useTodoAction } from "../hooks/todoAction";
+import useTodoStore from "../store/useTodoStore";
+import { useShallow } from "zustand/react/shallow";
 
 const EditForm = () => {
-  console.log("editForm");
-  const state = useContext(TodoStateContext);
-  const {text , id} = state.editingTodo;
-  const {handleCancelEdit , handleSaveEdit} = useTodoAction();
+  const {editingTodo , cancelEdit , saveEdit} = useTodoStore(useShallow((state) => (
+    {
+      editingTodo : state.editingTodo,
+      cancelEdit : state.cancelEdit,
+      saveEdit : state.saveEdit
+    }
+  )));
+  const {text , id } = editingTodo;
 
+
+  
   const [editText, setEditText] = useState(text);
   const [error , setError] = useState("");
 
@@ -19,7 +25,7 @@ const EditForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if(editText.trim()){
-      handleSaveEdit(id , editText.trim());
+      saveEdit(id , editText.trim());
     }
     else{
         setError("Jangan di kosongin")
@@ -43,7 +49,7 @@ const EditForm = () => {
                 <Button status="save" type="submit">
                 Save
                 </Button>
-                <Button status ="cancel" onclick = {handleCancelEdit}>Cancel</Button>
+                <Button status ="cancel" onclick = {cancelEdit}>Cancel</Button>
             </div>
           </form>
       </div>

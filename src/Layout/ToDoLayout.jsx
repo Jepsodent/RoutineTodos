@@ -1,24 +1,24 @@
-import { useCallback, useContext, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import Card from "../Fragment/Card";
 import InputForm from "../Fragment/InputForm";
 import EditForm from "../Fragment/EditForm";
 
-import { TodoStateContext } from "../context/ToDoReducerAndContext";
-import { useTodoAction } from "../hooks/todoAction";
 import DropDown from "../components/button/CustomDropDown";
+import useTodoStore from "../store/useTodoStore";
+import { useShallow } from "zustand/react/shallow";
 
 const ToDoLayout = () => {
-  console.log("RENDER!")
-  console.log("todolayout")
-  const state = useContext(TodoStateContext);
-  const {
-    handleFilterAction,
-  } = useTodoAction();
-
-  
-  const { todos, editingTodo, filterBy } = state;
-
-
+  // using zustand
+  const {todos , editingTodo , filterBy ,setFilter } = useTodoStore(useShallow((state) => 
+  (
+    {
+    todos : state.todos, 
+    editingTodo : state.editingTodo , 
+    filterBy : state.filterBy,
+    setFilter : state.setFilter
+    }
+  )
+  ))
 
   const filterTodos = useMemo(() => {
     console.log("filterTodos dijalankan")
@@ -34,8 +34,8 @@ const ToDoLayout = () => {
   } , [todos , filterBy])
 
   const onSelect = useCallback((value) => {
-    handleFilterAction(value);
-  }, [handleFilterAction]);
+    setFilter(value);
+  }, [setFilter]);
   
   
 

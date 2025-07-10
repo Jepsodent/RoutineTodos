@@ -1,22 +1,32 @@
 import { memo} from "react";
 import Button from "../components/button/Button";
-import { useTodoAction } from "../hooks/todoAction";
+import useTodoStore from "../store/useTodoStore";
+import { useShallow } from "zustand/react/shallow";
 
 const Card = (props) => {
-  const {handleEditTodo ,  handleDeleteTodo , handleToggleAction} = useTodoAction()
+  
+  const {editTodo , deleteTodo , toggleAction } = useTodoStore(useShallow((state) => 
+    (
+      {
+        editTodo : state.editTodo,
+        deleteTodo : state.deleteTodo,
+        toggleAction : state.toggleAction    
+      }
+    )));
+  
   const { todo } = props;
   console.log("Card render for id : ",todo.id);
   
   const onEditClick = () => {
-    handleEditTodo(todo);
+    editTodo(todo);
   }
   
   const onDeleteClick = () => {
-    handleDeleteTodo(todo.id) 
+    deleteTodo(todo.id) 
   }
   
   const onCompleteClick = () => {
-    handleToggleAction(todo.id);
+    toggleAction(todo.id);
   }
   return (
     <div className="flex items-center justify-between p-2 m-4  bg-[#393E6F] rounded-md font-medium text-md hover:bg-[#3D2E4F]">

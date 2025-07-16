@@ -3,6 +3,8 @@ import Button from "../components/button/Button";
 import useTodoStore from "../store/useTodoStore";
 import { useShallow } from "zustand/react/shallow";
 
+
+
 const EditForm = () => {
   const {editingTodo , cancelEdit , saveEdit} = useTodoStore(useShallow((state) => (
     {
@@ -11,6 +13,10 @@ const EditForm = () => {
       saveEdit : state.saveEdit
     }
   )));
+  if(!editingTodo){
+    return null;
+  }
+  
   const {text , id } = editingTodo;
 
 
@@ -22,7 +28,7 @@ const EditForm = () => {
     setEditText(text);
   }, [text])
 
-  const handleSubmit = (e) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement>= (e) => {
     e.preventDefault();
     if(editText.trim()){
       saveEdit(id , editText.trim());

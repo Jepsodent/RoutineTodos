@@ -1,4 +1,11 @@
-const Input = (props) => {
+// import React from "react";
+
+type InputForm = {
+  value: string;
+  handleText: React.ChangeEventHandler<HTMLInputElement>;
+}
+
+const Input = (props: InputForm) => {
   const { value, handleText } = props;
   return (
     <div className="w-full">

@@ -2,8 +2,14 @@ import { memo} from "react";
 import Button from "../components/button/Button";
 import useTodoStore from "../store/useTodoStore";
 import { useShallow } from "zustand/react/shallow";
+import { TodosObject } from "@/types/todo";
 
-const Card = (props) => {
+type CardProps = {
+  todo: TodosObject;
+}
+
+
+const Card = (props: CardProps) => {
   
   const {editTodo , deleteTodo , toggleAction } = useTodoStore(useShallow((state) => 
     (

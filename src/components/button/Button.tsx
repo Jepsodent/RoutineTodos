@@ -1,7 +1,13 @@
 import classNames from "classnames";
+import { PropsWithChildren } from "react";
+type ButtonProps = {
+  status: "add" | "edit"| "delete" |"save" | "cancel";
+  type?: "button" | "submit" | "reset" ;
+  onclick?: React.MouseEventHandler<HTMLButtonElement>
+}
 
 
-const Button = (props) => {
+const Button = (props:ButtonProps & PropsWithChildren) => {
   const { status, onclick = () => {}, type = "button" ,  children } = props;
   const baseClasses = " px-4 py-2 rounded-l text-white text-center text-sm fond-semibold shadow-md hover:scale-105 transition-colors duration-200";
   let typeClasses = "";

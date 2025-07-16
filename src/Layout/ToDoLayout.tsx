@@ -2,10 +2,11 @@ import { useCallback, useMemo } from "react";
 import Card from "../Fragment/Card";
 import InputForm from "../Fragment/InputForm";
 import EditForm from "../Fragment/EditForm";
-
 import DropDown from "../components/button/CustomDropDown";
 import useTodoStore from "../store/useTodoStore";
 import { useShallow } from "zustand/react/shallow";
+import { FilterOptions } from "@/types/todo";
+
 
 const ToDoLayout = () => {
   // using zustand
@@ -21,7 +22,6 @@ const ToDoLayout = () => {
   ))
 
   const filterTodos = useMemo(() => {
-    console.log("filterTodos dijalankan")
     return todos.filter((todo) => {
       if (filterBy === "completed") {
         return todo.completed;
@@ -33,7 +33,7 @@ const ToDoLayout = () => {
     });
   } , [todos , filterBy])
 
-  const onSelect = useCallback((value) => {
+  const onSelect = useCallback((value: FilterOptions) => {
     setFilter(value);
   }, [setFilter]);
   

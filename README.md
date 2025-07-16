@@ -25,6 +25,8 @@ A sleek and modern To-Do List web application built using React, showcasing mast
 
 ## 🛠️ Tech Stack & Concepts Explored
 
+### 🗃️ TypeScript
+
 ### ⚛️ React Essentials
 -   `useState`, `useEffect`, `useRef`
 -   Component composition & controlled components

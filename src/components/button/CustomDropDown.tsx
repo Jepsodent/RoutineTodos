@@ -1,10 +1,22 @@
 import { memo, useEffect, useRef, useState } from "react";
+import React from "react";
+import { FilterOptions } from "@/types/todo";
 
-const DropDown = ({onSelect, currentFilter }) => {
-  console.log("DropDown")
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(null);
-  const options = [
+
+type DropDownProps = {
+  onSelect : (value: FilterOptions) => void;
+  currentFilter: FilterOptions;
+}
+
+interface Options{ 
+  value : FilterOptions;
+  label : "All Tasks" | "Completed" | "Remaining";
+}
+
+const DropDown = ({onSelect, currentFilter } : DropDownProps) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const options:Options[] = [
     {
       value: "all",
       label: "All Tasks",
@@ -19,8 +31,8 @@ const DropDown = ({onSelect, currentFilter }) => {
     },
   ];
   useEffect(() => {
-    const handleClickOutSide = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleClickOutSide = (event : MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
@@ -30,7 +42,7 @@ const DropDown = ({onSelect, currentFilter }) => {
     };
   }, [isOpen]);
 
-  const handleOptionClick = (value) => {
+  const handleOptionClick = (value: FilterOptions) => {
     onSelect(value);
     setIsOpen(false);
   };
@@ -64,7 +76,7 @@ const DropDown = ({onSelect, currentFilter }) => {
         <div
         className="absolute z-10 mt-2 transition-all duration-200 origin-top-right transform scale-y-100 divide-y rounded-lg shadow-lg opacity-100 w-44 bg-slate-700 divide-slate-600"        >
           <ul
-            class="py-2 text-sm text-slate-200"
+            className="py-2 text-sm text-slate-200"
             aria-labelledby="dropdownDividerButton"
           >
             {options.map((option) => (

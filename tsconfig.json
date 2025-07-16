@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",                    /* (1) Versi JS target */
+    "lib": ["DOM", "DOM.Iterable", "ESNext"], /* (2) Lingkungan library */
+    "useDefineForClassFields": true,      /* (3) Untuk kompatibilitas class fields */
+    "allowJs": false,                    /* (4) Jangan izinkan file JS murni */
+    "skipLibCheck": true,                /* (5) Abaikan pemeriksaan tipe library */
+    "esModuleInterop": true,             /* (6) Kompatibilitas impor/ekspor */
+    "allowSyntheticDefaultImports": true, /* (7) Kompatibilitas impor/ekspor */
+    "strict": true,                      /* (8) Aktifkan semua mode ketat */
+    "forceConsistentCasingInFileNames": true, /* (9) Konsistensi nama file */
+    "module": "ESNext",                  /* (10) Sistem modul */
+    "moduleResolution": "Node",          /* (11) Cara resolusi modul */
+    "resolveJsonModule": true,           /* (12) Impor JSON */
+    "isolatedModules": true,             /* (13) Setiap file adalah modul */
+    "noEmit": true,                      /* (14) Jangan hasilkan file JS fisik */
+    "jsx": "react-jsx",                  /* (15) Cara menangani JSX */
+    "paths": {                           /* (16) Alias untuk path impor */
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src"],                    /* (17) Lokasi file sumber */
+  "exclude": ["node_modules"]            /* (18) Lokasi file yang diabaikan */
+}

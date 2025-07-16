@@ -5,21 +5,20 @@ import useTodoStore from "../store/useTodoStore";
 
 const InputForm = () => {
   const addTodo  = useTodoStore((state) => state.addTodo);
-  const [value, setValue] = useState("");
-  const [error, setError] = useState("");
+  const [value, setValue] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
-  const handleText = (e) => {
+  const handleText:React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setValue(e.target.value);
     setError("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     if (value.trim() === "") {
       setError("Tidak boleh kosong!");
     } else {
       addTodo(value);
-      console.log(value);
       setError("");
       setValue("");
     }
@@ -28,7 +27,7 @@ const InputForm = () => {
   return (
     <form className="m-4" onSubmit={handleSubmit}>
       <div className="flex gap-4 my-4">
-        <Input value={value} handleText={handleText} error={error} />
+        <Input value={value} handleText={handleText}/>
         <Button status="add" type="submit">
           <div className="flex items-center justify-center gap-3 text-base">
 

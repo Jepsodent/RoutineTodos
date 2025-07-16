@@ -1,12 +1,14 @@
 import { create } from "zustand";
+import { TodoStore , TodosObject } from "@/types/todo";
 
 
-const useTodoStore = create((set) => ({
+
+const useTodoStore = create<TodoStore>((set) => ({
     // initial storage
-    todos: [] , 
+    todos: [],
     nextId : 1,
     editingTodo : null , 
-    filterBy : 'all',
+    filterBy : "all",
     // action
     loadInitialData : () => {
         const savedData = localStorage.getItem("data");
@@ -35,7 +37,7 @@ const useTodoStore = create((set) => ({
     },
 
     addTodo : (text) => set((state) =>{
-        const newTodos = {
+        const newTodos:TodosObject = {
             text,
             id : state.nextId,
             completed : false
@@ -88,12 +90,16 @@ const useTodoStore = create((set) => ({
 
 useTodoStore.getState().loadInitialData();
 
-useTodoStore.subscribe((currentState) => 
+type SubscribeListen = (state:TodoStore) => void
+type SubscribeSelector = (state:TodoStore) => void
+
+(useTodoStore.subscribe as (listener: SubscribeListen, selector?: SubscribeSelector) => () => void)(
+    (currentState: TodoStore) => 
     {
         localStorage.setItem("data", JSON.stringify(currentState.todos))
         console.log("Data berubah (todos)");
     },
-    (state) => state.todos 
+        (state: TodoStore) => state.todos
 );
 
 
